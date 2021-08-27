@@ -5,7 +5,7 @@ import androidx.compose.material.Shapes
 import androidx.compose.ui.unit.dp
 
 val TwitterShapes = Shapes(
-    small = RoundedCornerShape(50),
-    medium = RoundedCornerShape(8.dp),
+    small = RoundedCornerShape(8.dp),
+    medium = RoundedCornerShape(4.dp),
     large = RoundedCornerShape(0.dp)
 )

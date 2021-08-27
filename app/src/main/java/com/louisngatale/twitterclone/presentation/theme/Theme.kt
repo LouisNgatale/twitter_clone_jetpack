@@ -8,24 +8,7 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-val Teal200 = Color(0xFF03DAC5)
-val Black = Color(0xFF000000)
-val White = Color(0xFFffffff)
 
-private val Yellow400 = Color(0xFFF6E547)
-private val Yellow600 = Color(0xFFF5CF1B)
-private val Yellow700 = Color(0xFFF3B711)
-private val Yellow800 = Color(0xFFF29F05)
-
-private val Blue200 = Color(0xFF1d9bf0)
-private val Blue400 = Color(0xFF4860F7)
-private val Blue500 = Color(0xFF0540F2)
-private val Blue800 = Color(0xFF001CCF)
-
-private val Red300 = Color(0xFFEA6D7E)
-private val Red800 = Color(0xFFD00036)
-
-val Grey = Color(0xFF2F3336)
 
 private val DarkColorPalette = darkColors(
     primary = Blue200,
@@ -37,7 +20,7 @@ private val DarkColorPalette = darkColors(
     onBackground = Color.White,
     error = Red300,
     onError = Color.Black,
-    background = Black
+    background = Color.Black
 )
 
 private val LightColorPalette = lightColors(
