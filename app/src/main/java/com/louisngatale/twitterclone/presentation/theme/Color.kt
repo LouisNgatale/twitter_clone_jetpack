@@ -30,6 +30,7 @@ fun Colors.elevatedSurface(elevation: Dp): Color {
 
 val Teal200 = Color(0xFF03DAC5)
 val Black = Color(0xFF000000)
+val Black100 = Color(0xFF1B1B1B)
 val White = Color(0xFFffffff)
 
 val Yellow400 = Color(0xFFF6E547)

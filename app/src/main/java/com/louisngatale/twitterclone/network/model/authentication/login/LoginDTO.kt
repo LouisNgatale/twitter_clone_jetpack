@@ -15,8 +15,8 @@ data class LoginDTO(
     val second_name: String,
     @SerializedName("profile_picture")
     val profile_picture: String,
-    @SerializedName("response_code")
-    val response_code: String,
+    @SerializedName("status")
+    val status: String,
     @SerializedName("response_message")
     val response_message: String,
     @SerializedName("token")
