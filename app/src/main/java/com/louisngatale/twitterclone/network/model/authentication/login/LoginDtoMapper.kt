@@ -10,7 +10,7 @@ class LoginDtoMapper {
     * */
     fun mapToUserModel(model: LoginDTO) : User{
         return User (
-            id = model.user_id,
+            user_id = model.user_id,
             username = model.username,
             email = model.email,
             first_name = model.first_name,

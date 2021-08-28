@@ -1,5 +1,6 @@
 package com.louisngatale.twitterclone.presentation.ui.login
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Layout
 import androidx.fragment.app.Fragment
@@ -7,9 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -44,8 +43,10 @@ class LoginFragment : Fragment() {
     @Inject
     lateinit var application: MainApplication
 
-    private val viewModel: LoginViewModel by viewModels()
+    val sharedPref = activity?.getSharedPreferences(
+        getString(R.string.preference_file_key), Context.MODE_PRIVATE)
 
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,6 +58,7 @@ class LoginFragment : Fragment() {
                 val isDarkTheme: Boolean = isSystemInDarkTheme()
                 val logo =  if (isDarkTheme) R.drawable.icon_white else R.drawable.icon_blue
                 val loading = viewModel.loading.value
+                val scrollState = rememberScrollState()
 
                 TwitterCloneTheme {
 
@@ -65,13 +67,11 @@ class LoginFragment : Fragment() {
                             .fillMaxSize()
                             .padding(horizontal = 25.dp, vertical = 10.dp)
                         ){
-                            if (viewModel.isError.value)
-                                Toast.makeText(
-                                    LocalContext.current,
-                                    viewModel.error.value,
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            Column {
+
+                            Column (
+                                modifier = Modifier
+                                    .verticalScroll(scrollState)
+                            ){
                                 var email by remember { mutableStateOf("") }
                                 var password by remember { mutableStateOf("") }
                                 var errorState by remember { mutableStateOf(false)}
@@ -182,7 +182,8 @@ class LoginFragment : Fragment() {
 
 
                                 // Forgot password? Sign in
-                                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+                                Row(verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.Center) {
                                     TextButton(onClick = { /*TODO*/ }) {
                                         Text(
                                             text = "Forgot password?",
@@ -200,6 +201,30 @@ class LoginFragment : Fragment() {
                                     }
 
                                 }
+
+                                Text(
+                                    text = viewModel.username.value.toString(),
+                                    style = MaterialTheme.typography.h5,
+                                    fontWeight = FontWeight.Bold
+                                )
+
+                                // Show SnackBar when there's an error
+                                if (viewModel.snackbarVisibleState.value) {
+                                    Snackbar(
+                                        action = {
+                                            Button(onClick = {
+                                                viewModel.snackbarVisibleState.value = false
+                                                viewModel.error.value = ""
+                                            }) {
+                                                Text("Cancel")
+                                            }
+                                        },
+                                        actionOnNewLine = true,
+                                        modifier = Modifier.padding(8.dp)
+                                    ) {
+                                        Text(text = viewModel.error.value)
+                                    }
+                                }
                             }
 
                             // Progress Bar
@@ -208,6 +233,8 @@ class LoginFragment : Fragment() {
                             }
                         }
                     }
+
+
                 }
             }
         }
