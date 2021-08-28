@@ -201,30 +201,6 @@ class LoginFragment : Fragment() {
                                     }
 
                                 }
-
-                                Text(
-                                    text = viewModel.username.value.toString(),
-                                    style = MaterialTheme.typography.h5,
-                                    fontWeight = FontWeight.Bold
-                                )
-
-                                // Show SnackBar when there's an error
-                                if (viewModel.snackbarVisibleState.value) {
-                                    Snackbar(
-                                        action = {
-                                            Button(onClick = {
-                                                viewModel.snackbarVisibleState.value = false
-                                                viewModel.error.value = ""
-                                            }) {
-                                                Text("Cancel")
-                                            }
-                                        },
-                                        actionOnNewLine = true,
-                                        modifier = Modifier.padding(8.dp)
-                                    ) {
-                                        Text(text = viewModel.error.value)
-                                    }
-                                }
                             }
 
                             // Progress Bar
