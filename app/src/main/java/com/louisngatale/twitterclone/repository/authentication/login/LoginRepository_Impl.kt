@@ -1,12 +1,12 @@
 package com.louisngatale.twitterclone.repository.authentication.login
 
-import com.louisngatale.twitterclone.network.LoginService
+import com.louisngatale.twitterclone.network.RetrofitService
 import com.louisngatale.twitterclone.network.model.authentication.login.LoginDTO
 import com.louisngatale.twitterclone.network.model.authentication.login.LoginDtoMapper
 import com.louisngatale.twitterclone.network.request.LoginRequest
 
 class LoginRepository_Impl(
-    private val loginService: LoginService,
+    private val loginService: RetrofitService,
 ) : LoginRepository{
 
     /*

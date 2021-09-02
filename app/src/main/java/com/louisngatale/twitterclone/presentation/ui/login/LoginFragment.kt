@@ -25,6 +25,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import com.louisngatale.twitterclone.MainApplication
 import com.louisngatale.twitterclone.R
 import com.louisngatale.twitterclone.presentation.theme.*
@@ -43,9 +44,6 @@ class LoginFragment : Fragment() {
     @Inject
     lateinit var application: MainApplication
 
-    val sharedPref = activity?.getSharedPreferences(
-        getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-
     private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
@@ -61,13 +59,11 @@ class LoginFragment : Fragment() {
                 val scrollState = rememberScrollState()
 
                 TwitterCloneTheme {
-
                     Scaffold {
                         Box(modifier = Modifier
                             .fillMaxSize()
                             .padding(horizontal = 25.dp, vertical = 10.dp)
                         ){
-
                             Column (
                                 modifier = Modifier
                                     .verticalScroll(scrollState)
@@ -183,6 +179,7 @@ class LoginFragment : Fragment() {
 
                                 // Forgot password? Sign in
                                 Row(verticalAlignment = Alignment.CenterVertically,
+                                    modifier = Modifier.fillMaxWidth(),
                                     horizontalArrangement = Arrangement.Center) {
                                     TextButton(onClick = { /*TODO*/ }) {
                                         Text(
@@ -193,7 +190,10 @@ class LoginFragment : Fragment() {
 
                                     Spacer(modifier = Modifier.width(6.dp))
 
-                                    TextButton(onClick = { /*TODO*/ }) {
+                                    TextButton(onClick = {
+                                        val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+                                        findNavController().navigate(action)
+                                    }) {
                                         Text(
                                             text = "Sign up for Twitter",
                                             color = Blue200
@@ -209,8 +209,6 @@ class LoginFragment : Fragment() {
                             }
                         }
                     }
-
-
                 }
             }
         }

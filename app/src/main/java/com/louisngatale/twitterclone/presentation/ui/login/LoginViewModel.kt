@@ -66,11 +66,13 @@ constructor(
                         putString("token", login.token)
                         apply()
                     }
+                    Log.d(TAG, "Success")
                     loading.value = false
+                    //TODO: Send user to another page
                 }
             }catch (e: Exception){
                 loading.value = false
-                Log.e(TAG, "launchJob: Exception: ${e}, ${e.cause}")
+                Log.e(TAG, "LoginJob: Exception: ${e}, ${e.cause}")
                 e.printStackTrace()
             }
         }
