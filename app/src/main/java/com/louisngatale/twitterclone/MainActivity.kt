@@ -18,5 +18,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activiy_main)
 
+        // TODO: Create Authentication singleton class
     }
 }

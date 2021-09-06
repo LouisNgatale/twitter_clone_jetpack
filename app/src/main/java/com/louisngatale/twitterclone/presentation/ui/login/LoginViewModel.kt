@@ -40,6 +40,7 @@ constructor(
     val loading = mutableStateOf(false)
     val error = mutableStateOf("")
     val isError = mutableStateOf(false)
+    val loggedIn = mutableStateOf(sharedPref.getString("loggedIn","false"))
     val snackbarVisibleState = mutableStateOf(false)
     val username = mutableStateOf(sharedPref.getString("username",""))
 
@@ -64,6 +65,7 @@ constructor(
                         putString("second_name", login.second_name)
                         putString("profile_picture", login.profile_picture)
                         putString("token", login.token)
+                        putString("loggedIn", true.toString())
                         apply()
                     }
                     Log.d(TAG, "Success")

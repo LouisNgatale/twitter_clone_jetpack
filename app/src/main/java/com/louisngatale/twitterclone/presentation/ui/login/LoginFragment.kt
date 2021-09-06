@@ -1,13 +1,10 @@
 package com.louisngatale.twitterclone.presentation.ui.login
 
-import android.content.Context
 import android.os.Bundle
-import android.text.Layout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,16 +13,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.louisngatale.twitterclone.MainApplication
 import com.louisngatale.twitterclone.R
 import com.louisngatale.twitterclone.presentation.theme.*
@@ -44,7 +39,20 @@ class LoginFragment : Fragment() {
     @Inject
     lateinit var application: MainApplication
 
-    private val viewModel: LoginViewModel by viewModels()
+    private lateinit var viewModel: LoginViewModel
+
+//    private val viewModel: LoginViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        when{
+            viewModel.loggedIn.value.equals("true") -> {
+                val home_action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+                findNavController().navigate(home_action)
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
