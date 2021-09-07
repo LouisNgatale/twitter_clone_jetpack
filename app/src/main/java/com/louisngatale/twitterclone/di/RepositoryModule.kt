@@ -1,8 +1,8 @@
 package com.louisngatale.twitterclone.di
 
-import com.louisngatale.twitterclone.network.RegisterService
-import com.louisngatale.twitterclone.network.RetrofitService
-import com.louisngatale.twitterclone.network.model.authentication.login.LoginDtoMapper
+import com.louisngatale.twitterclone.domain.UserPreferences
+import com.louisngatale.twitterclone.network.AuthApi
+import com.louisngatale.twitterclone.repository.authentication.AuthRepository
 import com.louisngatale.twitterclone.repository.authentication.login.LoginRepository
 import com.louisngatale.twitterclone.repository.authentication.login.LoginRepository_Impl
 import com.louisngatale.twitterclone.repository.authentication.registration.RegisterRepository
@@ -17,6 +17,19 @@ import javax.inject.Singleton
 @InstallIn(value = [SingletonComponent::class])
 object RepositoryModule {
 
+    @Singleton
+    @Provides
+    fun provideAuthRepository(
+        authApi: AuthApi,
+        preferences: UserPreferences,
+    ) : AuthRepository{
+        return AuthRepository(
+            authApi = authApi,
+            preferences = preferences
+        )
+    }
+
+
     /*
     * Inject required dependencies into the login
     * repository which makes login request on
@@ -25,7 +38,7 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideLoginRepository(
-        loginService: RetrofitService,
+        loginService: AuthApi,
     ):LoginRepository{
         return LoginRepository_Impl(
             loginService = loginService,
@@ -40,7 +53,7 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideRegisterRepository(
-        registerService: RetrofitService,
+        registerService: AuthApi,
     ):RegisterRepository{
         return RegisterRepository_Impl(
             registerService = registerService,

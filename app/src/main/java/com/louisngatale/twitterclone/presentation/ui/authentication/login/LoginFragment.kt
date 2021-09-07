@@ -1,10 +1,11 @@
-package com.louisngatale.twitterclone.presentation.ui.login
+package com.louisngatale.twitterclone.presentation.ui.authentication.login
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,13 +19,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.louisngatale.twitterclone.MainApplication
 import com.louisngatale.twitterclone.R
+import com.louisngatale.twitterclone.domain.UserPreferences
+import com.louisngatale.twitterclone.domain.utils.startNewActivity
+import com.louisngatale.twitterclone.network.resource.Resource
 import com.louisngatale.twitterclone.presentation.theme.*
 import com.louisngatale.twitterclone.presentation.ui.composables.LoadingModal
+import com.louisngatale.twitterclone.presentation.ui.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -39,25 +44,35 @@ class LoginFragment : Fragment() {
     @Inject
     lateinit var application: MainApplication
 
-    private lateinit var viewModel: LoginViewModel
+    private val viewModel: LoginViewModel by viewModels()
 
+    @Inject
+    lateinit var  userPreferences: UserPreferences
 //    private val viewModel: LoginViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-        when{
-            viewModel.loggedIn.value.equals("true") -> {
-                val home_action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
-                findNavController().navigate(home_action)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel.loginResponse.observe(viewLifecycleOwner, Observer {
+            when(it){
+                is Resource.Success -> {
+                    viewModel.saveAuthToken(it.value.user.accessToken)
+                    requireActivity().startNewActivity(HomeActivity::class.java)
+                    viewModel.loading.value = false
+                }
+                is Resource.Failure -> {
+                    Toast.makeText(requireContext(), "Error logging In", Toast.LENGTH_SHORT).show()
+                    viewModel.loading.value = false
+                }
             }
-        }
+        })
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        userPreferences = UserPreferences(requireContext())
+
         return ComposeView(requireContext()).apply {
             setContent {
                 // Dark mode setup
@@ -199,7 +214,7 @@ class LoginFragment : Fragment() {
                                     Spacer(modifier = Modifier.width(6.dp))
 
                                     TextButton(onClick = {
-                                        val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+                                        val action = LoginFragmentDirections.actionLoginFragment2ToRegisterFragment2()
                                         findNavController().navigate(action)
                                     }) {
                                         Text(

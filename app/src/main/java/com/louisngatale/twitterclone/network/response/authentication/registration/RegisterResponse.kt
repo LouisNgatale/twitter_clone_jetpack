@@ -1,8 +1,8 @@
-package com.louisngatale.twitterclone.network.model.authentication.registration
+package com.louisngatale.twitterclone.network.response.authentication.registration
 
 import com.google.gson.annotations.SerializedName
 
-data class RegisterDTO(
+data class RegisterResponse(
     @SerializedName("message")
     val message: String?,
     @SerializedName("errors")

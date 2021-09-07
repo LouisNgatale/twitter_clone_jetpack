@@ -1,4 +1,4 @@
-package com.louisngatale.twitterclone.presentation.ui.register
+package com.louisngatale.twitterclone.presentation.ui.authentication.register
 
 import android.os.Bundle
 import android.util.Log
@@ -6,30 +6,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CalendarView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.louisngatale.twitterclone.MainApplication
 import com.louisngatale.twitterclone.R
 import com.louisngatale.twitterclone.network.request.RegisterRequest
@@ -38,10 +29,7 @@ import com.louisngatale.twitterclone.presentation.theme.TwitterCloneTheme
 import com.louisngatale.twitterclone.presentation.theme.TwitterShapes
 import com.louisngatale.twitterclone.presentation.theme.White
 import com.louisngatale.twitterclone.presentation.ui.composables.LoadingModal
-import com.louisngatale.twitterclone.presentation.ui.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 @ExperimentalMaterialApi
@@ -338,7 +326,7 @@ class RegisterFragment : Fragment() {
                                     Spacer(modifier = Modifier.width(6.dp))
 
                                     TextButton(onClick = {
-                                        val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
+                                        val action = RegisterFragmentDirections.actionRegisterFragment2ToLoginFragment2()
                                         findNavController().navigate(action)
                                     }) {
                                         Text(

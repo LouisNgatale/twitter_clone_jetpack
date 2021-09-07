@@ -1,6 +1,5 @@
 package com.louisngatale.twitterclone.presentation.ui.home
 
-import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -22,23 +21,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.fragment.findNavController
+import com.louisngatale.twitterclone.domain.UserPreferences
 import com.louisngatale.twitterclone.presentation.theme.Black100
 import com.louisngatale.twitterclone.presentation.theme.Grey
 import com.louisngatale.twitterclone.presentation.theme.TwitterCloneTheme
+import com.louisngatale.twitterclone.repository.authentication.AuthRepository
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @ExperimentalMaterialApi
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var viewModel: HomeViewModel
+
+    @Inject
+    lateinit var repository: AuthRepository
+
+    private lateinit  var userPreferences: UserPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,10 +79,7 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        if (!viewModel.loggedIn.value.equals("true")){
-            val login_action = HomeFragmentDirections.actionHomeFragmentToLoginFragment()
-            findNavController().navigate(login_action)
-        }
+        userPreferences = UserPreferences(requireContext())
     }
 
     @Composable
@@ -109,7 +112,7 @@ class HomeFragment : Fragment() {
                 painter = painterResource(R.drawable.prof),
                 modifier = Modifier
                     .size(25.dp)
-                    .clickable (
+                        .clickable (
                         onClick = {
                             scope.launch { scaffoldState.drawerState.open() }                        }
                     )
@@ -127,6 +130,15 @@ class HomeFragment : Fragment() {
             Image(
                 painter = painterResource(id = R.drawable.icon_white),
                 modifier = Modifier
+                    .clickable (onClick = {
+                        scope.launch {
+                            val authToken = userPreferences.authToken.first()
+                            userPreferences.revokeToken()
+                            if (authToken != null) {
+                                repository.logout(token = authToken)
+                            }
+                        }
+                    })
                     .size(25.dp),
                 contentDescription = null
             )

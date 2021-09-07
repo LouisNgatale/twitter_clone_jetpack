@@ -6,9 +6,7 @@ import android.content.SharedPreferences
 import android.content.res.Resources
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import com.louisngatale.twitterclone.R
-import com.louisngatale.twitterclone.repository.authentication.login.LoginRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

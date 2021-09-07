@@ -2,6 +2,7 @@ package com.louisngatale.twitterclone.di
 
 import android.content.Context
 import com.louisngatale.twitterclone.MainApplication
+import com.louisngatale.twitterclone.domain.UserPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,4 +19,11 @@ object AppModule {
     fun providesApplication(@ApplicationContext app: Context) : MainApplication {
         return app as MainApplication
     }
+
+    @Singleton
+    @Provides
+    fun provideUserPreferences(@ApplicationContext context: Context) : UserPreferences{
+        return UserPreferences(context)
+    }
+
 }
