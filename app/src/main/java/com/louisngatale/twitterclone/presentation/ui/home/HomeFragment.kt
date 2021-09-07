@@ -25,9 +25,12 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.louisngatale.twitterclone.domain.UserPreferences
+import com.louisngatale.twitterclone.domain.utils.startNewActivity
+import com.louisngatale.twitterclone.presentation.theme.Black
 import com.louisngatale.twitterclone.presentation.theme.Black100
 import com.louisngatale.twitterclone.presentation.theme.Grey
 import com.louisngatale.twitterclone.presentation.theme.TwitterCloneTheme
+import com.louisngatale.twitterclone.presentation.ui.authentication.AuthenticationActivity
 import com.louisngatale.twitterclone.repository.authentication.AuthRepository
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -69,7 +72,7 @@ class HomeFragment : Fragment() {
                         } },
                         drawerContent = { Text(text = "drawerContent") },
                         content = { Text("BodyContent") },
-                        bottomBar = { BottomAppBar(backgroundColor = Black100) { Text("BottomAppBar") } }
+                        bottomBar = { BottomAppBar(backgroundColor = Black) { Text("BottomAppBar") } }
                     )
                 }
             }
@@ -136,6 +139,7 @@ class HomeFragment : Fragment() {
                             userPreferences.revokeToken()
                             if (authToken != null) {
                                 repository.logout(token = authToken)
+                                requireActivity().startNewActivity(AuthenticationActivity::class.java)
                             }
                         }
                     })

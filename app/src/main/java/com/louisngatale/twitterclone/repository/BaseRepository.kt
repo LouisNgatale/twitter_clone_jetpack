@@ -1,5 +1,6 @@
 package com.louisngatale.twitterclone.repository
 
+import android.util.Log
 import com.louisngatale.twitterclone.network.resource.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -15,6 +16,8 @@ abstract interface BaseRepository {
             }catch (throwable: Throwable){
                 when(throwable){
                     is HttpException -> {
+                        Log.d("Error", throwable.code().toString())
+                        Log.d("Error", throwable.response()?.errorBody().toString())
                         Resource.Failure(true, throwable.code(), throwable.response()?.errorBody())
                     }
                     else -> {

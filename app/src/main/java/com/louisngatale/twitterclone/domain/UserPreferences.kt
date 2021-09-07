@@ -44,7 +44,7 @@ class UserPreferences (
 
     suspend fun revokeToken(){
         applicationContext.datastore.edit { preferences ->
-            preferences[KEY_AUTH] = ""
+            preferences.clear()
         }
     }
 

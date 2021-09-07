@@ -18,12 +18,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activiy_main)
-
-        // TODO: Send to Home Screen
+//        setContentView(R.layout.activiy_main)
 
         userPreferences.authToken.asLiveData().observe(this, Observer {
-            val activity = if (it == "") AuthenticationActivity::class.java else HomeActivity::class.java
+            val activity = if (it === null) AuthenticationActivity::class.java else HomeActivity::class.java
             startNewActivity(activity)
         })
     }

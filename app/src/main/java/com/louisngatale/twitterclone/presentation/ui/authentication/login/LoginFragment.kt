@@ -21,16 +21,19 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.louisngatale.twitterclone.MainApplication
 import com.louisngatale.twitterclone.R
 import com.louisngatale.twitterclone.domain.UserPreferences
+import com.louisngatale.twitterclone.domain.utils.handleApiError
 import com.louisngatale.twitterclone.domain.utils.startNewActivity
 import com.louisngatale.twitterclone.network.resource.Resource
 import com.louisngatale.twitterclone.presentation.theme.*
 import com.louisngatale.twitterclone.presentation.ui.composables.LoadingModal
 import com.louisngatale.twitterclone.presentation.ui.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -55,12 +58,14 @@ class LoginFragment : Fragment() {
         viewModel.loginResponse.observe(viewLifecycleOwner, Observer {
             when(it){
                 is Resource.Success -> {
-                    viewModel.saveAuthToken(it.value.user.accessToken)
-                    requireActivity().startNewActivity(HomeActivity::class.java)
-                    viewModel.loading.value = false
+                    lifecycleScope.launch{
+                        viewModel.saveAuthToken(it.value.user.accessToken)
+                        requireActivity().startNewActivity(HomeActivity::class.java)
+                        viewModel.loading.value = false
+                    }
                 }
                 is Resource.Failure -> {
-                    Toast.makeText(requireContext(), "Error logging In", Toast.LENGTH_SHORT).show()
+                    handleApiError(it)
                     viewModel.loading.value = false
                 }
             }
