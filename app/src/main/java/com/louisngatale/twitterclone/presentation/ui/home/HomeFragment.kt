@@ -10,6 +10,12 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Notifications
 import com.louisngatale.twitterclone.R
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -18,16 +24,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.fragment.findNavController
 import com.louisngatale.twitterclone.domain.session_manager.SessionManager
 import com.louisngatale.twitterclone.domain.utils.startNewActivity
 import com.louisngatale.twitterclone.presentation.theme.Blue200
 import com.louisngatale.twitterclone.presentation.theme.Grey
+import com.louisngatale.twitterclone.presentation.theme.Grey100
 import com.louisngatale.twitterclone.presentation.theme.TwitterCloneTheme
 import com.louisngatale.twitterclone.presentation.ui.authentication.AuthenticationActivity
+import com.louisngatale.twitterclone.presentation.ui.composables.NavigationItem
 import com.louisngatale.twitterclone.repository.authentication.AuthRepository
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -50,6 +58,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val routeId = findNavController().currentDestination?.id
         return ComposeView(requireContext())
             .apply {
             setContent {
@@ -77,59 +86,151 @@ class HomeFragment : Fragment() {
                         drawerContent = { Text(text = "drawerContent") },
                         drawerBackgroundColor = MaterialTheme.colors.background,
                         content = { TweetPage(this@HomeFragment) },
-                        bottomBar = { CustomBottomBar(isDarkTheme) })
+                        bottomBar = {
+                            CustomBottomBar(isDarkTheme,routeId)
+                        })
                 }
             }
         }
     }
 
     @Composable
-    fun CustomBottomBar(isDarkTheme: Boolean) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp)
-                .background(color = MaterialTheme.colors.background)
-                .drawBehind {
+    fun CustomBottomBar(isDarkTheme: Boolean, routeId: Int?) {
+        val items = listOf(
+            NavigationItem.Home,
+            NavigationItem.Search,
+            NavigationItem.Notifications,
+            NavigationItem.Messages
+        )
 
-                    val strokeWidth = 1 * density
-                    val y = size.height - strokeWidth / 2
+        Column {
+            Divider(modifier = Modifier.fillMaxWidth())
 
-                    drawLine(
-                        Grey,
-                        Offset(0f, y),
-                        Offset(size.width, y),
-                        strokeWidth
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceAround,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .background(color = MaterialTheme.colors.background)
+            ) {
+                // Home
+                if(routeId == R.id.homeFragment){
+                    // Home
+                    Icon(
+                        imageVector = Icons.Default.Home,
+                        modifier = Modifier
+                            .clickable(onClick = { /*TODO: Add Action*/ })
+                            .height(27.dp),
+                        tint = Blue200,
+                        contentDescription = "Home"
+                    )
+                }else{
+                    // Home
+                    Icon(
+                        imageVector = Icons.Outlined.Home,
+                        modifier = Modifier
+                            .clickable(onClick = { /*TODO: Add Action*/ })
+                            .height(27.dp),
+                        tint = Grey100,
+                        contentDescription = "Home"
                     )
                 }
-                .padding(horizontal = 7.dp)
 
-        ) {
-            Image(
-                painter = painterResource(R.drawable.prof),
-                modifier = Modifier
-                    .size(25.dp)
-                    .clip(CircleShape),
-                contentDescription = null
-            )
+                // Search
+                if(routeId == R.id.searchFragment){
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        modifier = Modifier
+                            .clickable(onClick = { /*TODO: Add Action*/ })
+                            .height(27.dp),
+                        tint = Blue200,
+                        contentDescription = "Home"
+                    )
+                }else{
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        modifier = Modifier
+                            .clickable(onClick = { /*TODO: Add Action*/ })
+                            .height(27.dp),
+                        tint = Grey100,
+                        contentDescription = "Home"
+                    )
+                }
 
-            Image(
-                painter = painterResource(id = R.drawable.icon_blue),
-                modifier = Modifier
-                    .size(25.dp),
-                contentDescription = null
-            )
+                // Notifications
+                if (routeId == R.id.notificationsFragment){
+                    Icon(
+                        imageVector = Icons.Outlined.Notifications,
+                        modifier = Modifier
+                            .clickable(onClick = { /*TODO: Add Action*/ })
+                            .height(27.dp),
+                        tint = Blue200,
+                        contentDescription = "Home"
+                    )
+                }else{
+                    Icon(
+                        imageVector = Icons.Outlined.Notifications,
+                        modifier = Modifier
+                            .clickable(onClick = { /*TODO: Add Action*/ })
+                            .height(27.dp),
+                        tint = Grey100,
+                        contentDescription = "Home"
+                    )
+                }
 
-            Image(
-                painter = painterResource(id = R.drawable.timeline_settings),
-                modifier = Modifier
-                    .size(25.dp),
-                contentDescription = null
-            )
+                // Messages
+                if (routeId == R.id.messagesFragment){
+                    Icon(
+                        imageVector = Icons.Outlined.Email,
+                        modifier = Modifier
+                            .clickable(onClick = { /*TODO: Add Action*/ })
+                            .height(27.dp),
+                        tint = Blue200,
+                        contentDescription = "Home"
+                    )
+                }else{
+                    Icon(
+                        imageVector = Icons.Outlined.Email,
+                        modifier = Modifier
+                            .clickable(onClick = { /*TODO: Add Action*/ })
+                            .height(27.dp),
+                        tint = Grey100,
+                        contentDescription = "Home"
+                    )
+                }
 
+                /*Image(
+                    painter = painterResource(id = R.drawable.home_active),
+                    contentDescription = "Home",
+                    modifier = Modifier
+                        .size(20.dp))
+
+                // Search
+                Image(
+                    painter = painterResource(id = R.drawable.search_inactive),
+                    contentDescription = "Home",
+                    modifier = Modifier
+                        .size(20.dp))
+
+                // Notifications
+                Image(
+                    painter = painterResource(id = R.drawable.notification_inactive),
+                    contentDescription = "Home",
+                    modifier = Modifier
+                        .size(20.dp))
+
+                // Messages
+                Image(
+                    painter = painterResource(id = R.drawable.messages_inactive),
+                    contentDescription = "Home",
+                    modifier = Modifier
+                        .size(20.dp))
+*/
+            }
         }
+
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -144,8 +245,6 @@ class HomeFragment : Fragment() {
         scaffoldState: ScaffoldState,
         scope: CoroutineScope,
     ) {
-        Divider(color = Color.Red, thickness = 1.dp)
-
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,

@@ -4,12 +4,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
@@ -117,6 +119,92 @@ fun TweetView() {
             )
 
         }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        // Tweet Details Count
+        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text(text = "1 Retweet",color = MaterialTheme.colors.onSurface)
+            Spacer(modifier = Modifier.width(10.dp))
+
+            Text(text = "1 Quote Tweet",color = MaterialTheme.colors.onSurface)
+            Spacer(modifier = Modifier.width(10.dp))
+
+            Text(text = "16 Likes",color = MaterialTheme.colors.onSurface)
+        }
+
+        // Tweet actions
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Row(
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            // Comment (comment count), retweet (retweet count) Like (like count) share
+            Box {
+                Row (verticalAlignment = Alignment.CenterVertically) {
+                    Image(
+                        painter = painterResource(id = R.drawable.comment),
+                        modifier = Modifier
+                            .size(17.dp),
+                        contentDescription = "Comment"
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    // Comments count
+                    Text(
+                        text = "6",
+                        color = MaterialTheme.colors.onSurface,
+                        style = MaterialTheme.typography.caption,
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.width(40.dp))
+
+            Box {
+                Row (verticalAlignment = Alignment.CenterVertically) {
+                    Image(
+                        modifier = Modifier
+                            .size(17.dp),
+                        painter = painterResource(id = R.drawable.retweet_inactive),
+                        contentDescription = "Retweet"
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    // Retweet count
+                    Text(
+                        text = "6",
+                        color = MaterialTheme.colors.onSurface,
+                        style = MaterialTheme.typography.caption,
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.width(40.dp))
+
+            Box {
+                Row (verticalAlignment = Alignment.CenterVertically){
+                    Image(
+                        painter = painterResource(id = R.drawable.like_inactive),
+                        modifier = Modifier
+                            .size(17.dp),
+                        contentDescription = "Like"
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    // Likes Count
+                    Text(
+                        text = "6",
+                        color = MaterialTheme.colors.onSurface,
+                        style = MaterialTheme.typography.caption,
+                    )
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Divider(modifier = Modifier.fillMaxWidth())
 
     }
 }

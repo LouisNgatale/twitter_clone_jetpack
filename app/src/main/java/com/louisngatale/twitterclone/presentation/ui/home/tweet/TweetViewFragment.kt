@@ -12,11 +12,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.navigation.findNavController
 import com.louisngatale.twitterclone.R
 import com.louisngatale.twitterclone.presentation.theme.Black
+import com.louisngatale.twitterclone.presentation.theme.Grey
 import com.louisngatale.twitterclone.presentation.theme.TwitterCloneTheme
 import kotlinx.coroutines.launch
 
@@ -50,28 +54,32 @@ class TweetViewFragment : Fragment() {
                                             contentDescription = "Back",
                                         )
                                     }
+                                },
+                                modifier = Modifier
+                                    .drawBehind {
+                                    val strokeWidth = 1 * density
+                                    val y = size.height + strokeWidth / 2
+
+                                    drawLine(
+                                        Grey,
+                                        Offset(0f, y),
+                                        Offset(size.width, y),
+                                        strokeWidth
+                                    )
                                 }
                             )
                          },
-                        bottomBar = {
-                            BottomAppBar(cutoutShape = CircleShape) {
-                                IconButton(
-                                    onClick = {
-                                        coroutineScope.launch { scaffoldState.drawerState.open() }
-                                    }
-                                ) {
-                                    Icon(Icons.Filled.Menu, contentDescription = "....")
-                                }
-                            }
-                        },
-                        floatingActionButton = {
-                            ExtendedFloatingActionButton(
-                                text = { Text("Action") },
-                                onClick = {
-
-                                }
-                            )
-                        },
+//                        bottomBar = {
+//                            BottomAppBar(cutoutShape = CircleShape) {
+//                                IconButton(
+//                                    onClick = {
+//                                        coroutineScope.launch { scaffoldState.drawerState.open() }
+//                                    }
+//                                ) {
+//                                    Icon(Icons.Filled.Menu, contentDescription = "....")
+//                                }
+//                            }
+//                        },
                         floatingActionButtonPosition = FabPosition.Center,
                         isFloatingActionButtonDocked = true,
                         content = { innerPadding ->

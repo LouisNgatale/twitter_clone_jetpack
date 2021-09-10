@@ -20,4 +20,19 @@
         android:name="com.louisngatale.twitterclone.presentation.ui.home.tweet.TweetViewFragment"
         android:label="tweet_view_fragment"
         tools:layout="@layout/tweet_view_fragment" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.louisngatale.twitterclone.presentation.ui.search.SearchFragment"
+        android:label="search_fragment"
+        tools:layout="@layout/search_fragment" />
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.louisngatale.twitterclone.presentation.ui.notifications.NotificationsFragment"
+        android:label="notifications_fragment"
+        tools:layout="@layout/notifications_fragment" />
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="com.louisngatale.twitterclone.presentation.ui.messages.MessagesFragment"
+        android:label="messages_fragment"
+        tools:layout="@layout/messages_fragment" />
 </navigation>

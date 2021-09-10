@@ -4,10 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.runtime.Composable
@@ -110,7 +107,7 @@ fun TweetPage(homeFragment: HomeFragment) {
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Row(
-                        horizontalArrangement = Arrangement.Start,
+                        horizontalArrangement = Arrangement.SpaceAround,
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -174,7 +171,16 @@ fun TweetPage(homeFragment: HomeFragment) {
                             }
                         }
                     }
+
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    Divider(modifier = Modifier.fillMaxWidth())
+
                 }
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Divider(modifier = Modifier.fillMaxWidth())
             }
 
             Row(
@@ -183,8 +189,11 @@ fun TweetPage(homeFragment: HomeFragment) {
                         vertical = 7.dp,
                         horizontal = 5.dp
                     )
+                    .clickable(onClick = {
+                        val action = HomeFragmentDirections.actionHomeFragmentToTweetFragment()
+                        findNavController(homeFragment).navigate(action)
+                    })
             ) {
-
                 // Profile Image
                 Image(
                     painter = painterResource(id = R.drawable.prof),
@@ -199,7 +208,6 @@ fun TweetPage(homeFragment: HomeFragment) {
                     // User details Row
                     Row (
                         horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
                             .fillMaxWidth()
                     ){
@@ -224,7 +232,7 @@ fun TweetPage(homeFragment: HomeFragment) {
                             imageVector = Icons.Outlined.MoreVert,
                             modifier = Modifier
                                 .clickable(onClick = { /*TODO: Add Action*/ })
-                                .height(18.dp),
+                                .height(24.dp),
                             tint = Grey100,
                             contentDescription = "Menu"
                         )
@@ -254,7 +262,7 @@ fun TweetPage(homeFragment: HomeFragment) {
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Row(
-                        horizontalArrangement = Arrangement.Start,
+                        horizontalArrangement = Arrangement.SpaceAround,
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -277,7 +285,9 @@ fun TweetPage(homeFragment: HomeFragment) {
                                 )
                             }
                         }
+
                         Spacer(modifier = Modifier.width(40.dp))
+
                         Box {
                             Row (verticalAlignment = Alignment.CenterVertically) {
                                 Image(
@@ -295,11 +305,13 @@ fun TweetPage(homeFragment: HomeFragment) {
                                 )
                             }
                         }
+
                         Spacer(modifier = Modifier.width(40.dp))
+
                         Box {
                             Row (verticalAlignment = Alignment.CenterVertically){
                                 Image(
-                                    painter = painterResource(id = R.drawable.like_active),
+                                    painter = painterResource(id = R.drawable.like_inactive),
                                     modifier = Modifier
                                         .size(17.dp),
                                     contentDescription = "Like"
@@ -314,9 +326,17 @@ fun TweetPage(homeFragment: HomeFragment) {
                             }
                         }
                     }
-                }
-            }
 
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    Divider(modifier = Modifier.fillMaxWidth())
+
+                }
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Divider(modifier = Modifier.fillMaxWidth())
+            }
         }
     }
 }
