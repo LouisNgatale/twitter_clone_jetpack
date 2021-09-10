@@ -1,6 +1,6 @@
 package com.louisngatale.twitterclone.repository.authentication
 
-import com.louisngatale.twitterclone.domain.UserPreferences
+import com.louisngatale.twitterclone.domain.session_manager.SessionManager
 import com.louisngatale.twitterclone.network.AuthApi
 import com.louisngatale.twitterclone.network.request.LoginRequest
 import com.louisngatale.twitterclone.repository.BaseRepository
@@ -8,7 +8,7 @@ import com.louisngatale.twitterclone.repository.BaseRepository
 
 class AuthRepository(
     private val authApi: AuthApi,
-    private val preferences: UserPreferences
+    private val preferences: SessionManager
 ) : BaseRepository {
 
     suspend fun login(

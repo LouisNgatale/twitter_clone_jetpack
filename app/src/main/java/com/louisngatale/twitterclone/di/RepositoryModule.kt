@@ -1,6 +1,6 @@
 package com.louisngatale.twitterclone.di
 
-import com.louisngatale.twitterclone.domain.UserPreferences
+import com.louisngatale.twitterclone.domain.session_manager.SessionManager
 import com.louisngatale.twitterclone.network.AuthApi
 import com.louisngatale.twitterclone.repository.authentication.AuthRepository
 import com.louisngatale.twitterclone.repository.authentication.login.LoginRepository
@@ -21,14 +21,13 @@ object RepositoryModule {
     @Provides
     fun provideAuthRepository(
         authApi: AuthApi,
-        preferences: UserPreferences,
+        preferences: SessionManager,
     ) : AuthRepository{
         return AuthRepository(
             authApi = authApi,
             preferences = preferences
         )
     }
-
 
     /*
     * Inject required dependencies into the login

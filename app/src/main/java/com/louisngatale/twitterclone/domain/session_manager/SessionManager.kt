@@ -1,4 +1,4 @@
-package com.louisngatale.twitterclone.domain
+package com.louisngatale.twitterclone.domain.session_manager
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -11,7 +11,7 @@ import com.louisngatale.twitterclone.domain.model.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class UserPreferences (
+class SessionManager (
     context: Context
 ) {
     private val applicationContext = context.applicationContext

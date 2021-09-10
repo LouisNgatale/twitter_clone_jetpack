@@ -4,6 +4,7 @@
     <color name="blue500">#1d9bf0</color>
     <color name="blue800">#001CCF</color>
     <color name="yellow700">#F3B711</color>
+    <color name="white">#FFFFFF</color>
 
     <!-- Dark -->
     <color name="blue300">#1d9bf0</color>

@@ -1,7 +1,9 @@
 package com.louisngatale.twitterclone.di
 
+import android.content.Context
 import com.google.gson.GsonBuilder
 import com.louisngatale.twitterclone.BuildConfig
+import com.louisngatale.twitterclone.domain.session_manager.SessionManager
 import com.louisngatale.twitterclone.network.AuthApi
 import dagger.Module
 import dagger.Provides
@@ -24,6 +26,8 @@ object NetworkModule {
     @Provides
     fun provideRetrofitService(
     ) : AuthApi {
+//        val context = Context()
+//        val session_token = SessionManager(context = )
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(

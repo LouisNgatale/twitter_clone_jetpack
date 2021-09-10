@@ -1,9 +1,12 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.TwitterClone" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.TwitterClone" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/blue300</item>
         <item name="colorPrimaryDark">@color/blue400</item>
         <item name="colorAccent">@color/yellow400</item>
         <item name="backgroundColor">@color/black</item>
+        <item name="android:navigationBarColor">@color/black</item>
+        <item name="colorOnBackground">@color/white</item>
+        <item name="colorOnSurface">@color/white</item>
     </style>
 </resources>

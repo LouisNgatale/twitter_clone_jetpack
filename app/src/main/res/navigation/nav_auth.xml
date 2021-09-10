@@ -12,6 +12,8 @@
             android:id="@+id/action_loginFragment2_to_registerFragment2"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
+            app:popUpTo="@id/loginFragment2"
+            app:popUpToInclusive="true"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out"
             app:destination="@id/registerFragment2" />
@@ -21,10 +23,11 @@
         android:name="com.louisngatale.twitterclone.presentation.ui.authentication.register.RegisterFragment"
         android:label="RegisterFragment" >
         <action
-
             android:id="@+id/action_registerFragment2_to_loginFragment2"
             app:destination="@id/loginFragment2"
             app:enterAnim="@android:anim/fade_in"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/registerFragment2"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />

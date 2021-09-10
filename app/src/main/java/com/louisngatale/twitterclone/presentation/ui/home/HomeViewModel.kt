@@ -1,5 +1,6 @@
 package com.louisngatale.twitterclone.presentation.ui.home
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
@@ -15,6 +16,7 @@ class HomeViewModel@Inject
 constructor(
     application: Application,
 ) : AndroidViewModel(application) {
+    @SuppressLint("StaticFieldLeak")
     val context: Context = getApplication<Application>().applicationContext!!
     private val getResource: Resources = context.resources
     private val sharedPref: SharedPreferences = context

@@ -10,5 +10,14 @@
         android:id="@+id/homeFragment"
         android:name="com.louisngatale.twitterclone.presentation.ui.home.HomeFragment"
         android:label="home_fragment"
-        tools:layout="@layout/home_fragment" />
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_tweetFragment"
+            app:destination="@id/tweetFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tweetFragment"
+        android:name="com.louisngatale.twitterclone.presentation.ui.home.tweet.TweetViewFragment"
+        android:label="tweet_view_fragment"
+        tools:layout="@layout/tweet_view_fragment" />
 </navigation>

@@ -20,13 +20,17 @@ private val KarlaFontFamily = FontFamily(
     Font(R.font.karla_bold, FontWeight.Bold)
 )
 
+private val ChirpFontFamily = FontFamily(
+    Font(R.font.chirp_regular_web)
+)
+
 // Set of Material typography styles to start with
 val TwitterTypography = Typography(
-    defaultFontFamily = MontserratFontFamily,
+    defaultFontFamily = ChirpFontFamily,
     h1 = TextStyle(
         fontWeight = FontWeight.Light,
         fontSize = 96.sp,
-        letterSpacing = (-1.5).sp
+        letterSpacing = (-1.5).sp,
     ),
     h2 = TextStyle(
         fontWeight = FontWeight.Light,
@@ -59,20 +63,20 @@ val TwitterTypography = Typography(
         letterSpacing = 0.sp
     ),
     subtitle2 = TextStyle(
-        fontFamily = KarlaFontFamily,
-        fontWeight = FontWeight.Bold,
+        fontFamily = ChirpFontFamily,
+        fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
-        letterSpacing = 0.1.sp
+        letterSpacing = 0.1.sp,
     ),
     body1 = TextStyle(
-        fontFamily = KarlaFontFamily,
+        fontFamily = ChirpFontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         letterSpacing = 0.sp,
         lineHeight = 24.sp
     ),
     body2 = TextStyle(
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
         letterSpacing = 0.25.sp
     ),
@@ -82,7 +86,7 @@ val TwitterTypography = Typography(
         letterSpacing = 1.25.sp
     ),
     caption = TextStyle(
-        fontFamily = KarlaFontFamily,
+        fontFamily = ChirpFontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 12.sp,
         letterSpacing = 0.15.sp

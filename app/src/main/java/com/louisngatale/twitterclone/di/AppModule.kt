@@ -2,7 +2,7 @@ package com.louisngatale.twitterclone.di
 
 import android.content.Context
 import com.louisngatale.twitterclone.MainApplication
-import com.louisngatale.twitterclone.domain.UserPreferences
+import com.louisngatale.twitterclone.domain.session_manager.SessionManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,8 +22,8 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideUserPreferences(@ApplicationContext context: Context) : UserPreferences{
-        return UserPreferences(context)
+    fun provideUserPreferences(@ApplicationContext context: Context) : SessionManager {
+        return SessionManager(context)
     }
 
 }
